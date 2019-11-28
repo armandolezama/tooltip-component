@@ -1,36 +1,105 @@
 <link rel="import" href="../polymer/polymer-element.html">
 
 <dom-module id="tooltip-component">
-  <template>
+    <template>
     <style>
       :host {
         display: block;
       }
+      /* Tooltip container */
+      .tooltip {
+      position: relative;
+      display: inline-block;
+      border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+      }
+
+      /* Tooltip text */
+      .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        padding: 5px 0;
+        border-radius: 6px;
+
+        /* Position the tooltip text */
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -60px;
+
+        /* Fade in tooltip */
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      /* Tooltip arrow */
+      .tooltiptext {
+        content: "";
+        position: absolute;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+      }
+
+      /* Show the tooltip text when you mouse over the tooltip container */
+      .tooltiptext.visible {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .tooltiptext.active-top {
+        visibility: visible;
+        opacity: 1;
+        bottom: 125%;
+        left: 50%;  
+        margin-left: -60px;
+      }
+
     </style>
-    <h2>Hello [[prop1]]!</h2>
+    <div on-mouseover="__showTooltip" on-mouseout="__hideTooltip" class="tooltip"> Texto for tooltip
+      <span id="custom-tooltip" class="tooltiptext">[[__tooltipText]]</span>
+    </div>
   </template>
 
-  <script>
-    /**
-     * `tooltip-component`
-     * tooltip for tutorial component
-     *
-     * @customElement
-     * @polymer
-     * @demo demo/index.html
-     */
-    class TooltipComponent extends Polymer.Element {
-      static get is() { return 'tooltip-component'; }
-      static get properties() {
-        return {
-          prop1: {
-            type: String,
-            value: 'tooltip-component'
-          }
-        };
-      }
-    }
+    <script>
+        /**
+         * `tooltip-component`
+         * tooltip for tutorial component
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class TooltipComponent extends Polymer.Element {
+            static get is() {
+                return 'tooltip-component';
+            }
+            static get properties() {
+                return {
+                    __tooltipText: {
+                        type: String,
+                        value: 'tooltip-component'
+                    }
+                };
+            }
 
-    window.customElements.define(TooltipComponent.is, TooltipComponent);
-  </script>
+            setTooltipText(newText) {
+                this.__tooltipText = newText;
+            }
+
+            __showTooltip() {
+                this.shadowRoot.querySelector('#custom-tooltip').classList.add('active-top')
+            }
+            __hideTooltip() {
+                this.shadowRoot.querySelector('#custom-tooltip').classList.remove('active-top')
+            }
+        }
+
+        window.customElements.define(TooltipComponent.is, TooltipComponent);
+    </script>
 </dom-module>
