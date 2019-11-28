@@ -26,7 +26,6 @@
         /* Position the tooltip text */
         position: absolute;
         z-index: 1;
-        bottom: 125%;
         left: 50%;
         margin-left: -60px;
 
@@ -40,7 +39,6 @@
         content: "";
         position: absolute;
         left: 50%;
-        margin-left: -5px;
         border-width: 5px;
         border-style: solid;
         border-color: #555 transparent transparent transparent;
@@ -56,8 +54,30 @@
         visibility: visible;
         opacity: 1;
         bottom: 125%;
+        left: 50%;
+      }
+
+      .tooltiptext.active-right {
+        visibility: visible;
+        opacity: 1;
+        top: -5px;
+        left: 180%;
+      }
+
+      .tooltiptext.active-bottom {
+        visibility: visible;
+        opacity: 1;
+        top: 135%;
         left: 50%;  
         margin-left: -60px;
+      }
+
+      .tooltiptext.active-left {
+        visibility: visible;
+        opacity: 1;
+        top: -5px;
+        bottom:auto;
+        left: -88%;  
       }
 
     </style>
@@ -93,10 +113,10 @@
             }
 
             __showTooltip() {
-                this.shadowRoot.querySelector('#custom-tooltip').classList.add('active-top')
+                this.shadowRoot.querySelector('#custom-tooltip').classList.add('active-left')
             }
             __hideTooltip() {
-                this.shadowRoot.querySelector('#custom-tooltip').classList.remove('active-top')
+                this.shadowRoot.querySelector('#custom-tooltip').classList.remove('active-left')
             }
         }
 
